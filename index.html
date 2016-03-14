@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <script src="node_modules/angular/angular.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
     <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
-    <script src="app.js"></script>
-    
-    <script>
-        //var socket = io.connect("http://127.0.0.1:8080");
-        
-        //socket.emit('input',{"name":"huhu" , "message":"hello"})
-    </script>
+    <script src="app.js"></script>    
+   
 </head>
 
 <body ng-app="chatApp">
-    <div ng-controller="chatController">
-        <input type="text" placeholder="Enter Name" ng-model="chat.username"/>
-        
-        <input type="text" placeholder="Enter Messages" ng-model="chat.message">
+    <div class="chat" ng-controller="chatController">
+        <input type="text" class="chat-name" placeholder="Enter Your name" ng-model="chat.username">
+        <div class="chat-messages">   
+           <ul>
+               <li ng-repeat="message in messages">{{message.name}} : {{message.message}}</li>
+           </ul>            
+        </div>
+        <textarea  placeholder="Type your messages" ng-model="chat.message"></textarea>
         <button type="submit" ng-click="send(chat)">Send</button>
     </div>
-    <h1>Hello</h1>
+    
 </body>
 </html>

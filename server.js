@@ -1,9 +1,6 @@
 var mongo = require('mongodb').MongoClient,
     client = require('socket.io').listen(8080).sockets;
 var anyg;    
-
-
-
 mongo.connect('mongodb://127.0.0.1/chat', function (err, db) {
     if (err) throw err;
 anyg = db;
@@ -13,6 +10,12 @@ anyg = db;
 client.on("connection", function (socket) {
     
     var col = anyg.collection('messages');
+    
+    col.find().limit(100).sort({_id:1}).toArray(function (err,res) {
+        if(err) throw err;
+        socket.emit('output',res);
+    })       
+    
     console.log("someone has connected");
     socket.on('input', function (data) {
         var name = data.name,
@@ -21,5 +24,6 @@ client.on("connection", function (socket) {
         col.insert({name : name , message : message},function () {
             console.log("inserted");
         })    
+        client.emit('output',[data]);
     })
 });    
