@@ -9,11 +9,9 @@ app.controller("chatController",function ($scope) {
    $scope.chat = {};
    $scope.send = function (data) {
        socket.emit('input',{"name": $scope.chat.username, "message":$scope.chat.message})
-       console.log(data)
    }
    
    socket.on('output',function (data) {
-       console.log(data);
        $scope.messages = data;
    })
 });

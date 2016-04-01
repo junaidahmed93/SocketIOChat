@@ -1,7 +1,7 @@
 var mongo = require('mongodb').MongoClient,
     client = require('socket.io').listen(8080).sockets;
 var anyg;    
-mongo.connect('mongodb://127.0.0.1/chat', function (err, db) {
+mongo.connect('mongodb://chatapp:chatapp123@ds021299.mlab.com:21299/chatapp', function (err, db) {
     if (err) throw err;
 anyg = db;
 
